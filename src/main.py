@@ -1,14 +1,6 @@
-from pathlib import Path
-from typing import Any
 from src.ui.kakuro_game_ui import KakuroGameUI
 
-
-def load_map(file_path: Path) -> Any:
-    ...
-
-
-def is_valid_map(game_map: Any) -> bool:
-    ...
+map_path = "maps/map1.json"
 
 
 def main():
