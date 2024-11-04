@@ -1,20 +1,16 @@
 from pathlib import Path
 from typing import Any
+from parse import parse_map
+from validation import validate_map
 
-
-def load_map(file_path: Path) -> Any:
-    ...
-
-
-def is_valid_map(game_map: Any) -> bool:
-    ...
-
+map_path = "maps/map1.json"
 
 def main():
-    game_map = load_map(Path("maps/map1.json"))
-    if not is_valid_map(game_map):
-        print("Invalid map!")
-        return
+    game_map = parse_map(map_path)
+    validate_map(game_map)
+    
+
+
 
 
 if __name__ == "__main__":
