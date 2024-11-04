@@ -1,11 +1,12 @@
 import pygame
 
 from src.ui.button import Button
+from src.ui.kakuro_game_field import KakuroGameField
 from src.ui.position import Position
 
 
 class KakuroGameUI:
-    background_color = (247, 255, 246)
+    background_color = (229, 229, 229)
     _instance = None
 
     def __new__(cls) -> "KakuroGameUI":
@@ -14,12 +15,17 @@ class KakuroGameUI:
         return cls._instance
 
     def _init_ui_components(self) -> None:
-        self.canvas = pygame.display.set_mode((500, 500))
+        self.canvas = pygame.display.set_mode((650, 700))
         self.canvas.fill(self.background_color)
 
         pygame.display.set_caption("Kakuro")
 
-        self.start_button = Button(self.canvas, "Start".upper(), Position(100, 100))
+        self.field = KakuroGameField(self.canvas, Position(100, 100))
+        start_button_position = Position(
+            self.field.position.x,
+            self.field.height + self.field.position.y + 20
+        )
+        self.start_button = Button(self.canvas, "Start".upper(), start_button_position)
 
     def __init__(self) -> None:
         if hasattr(self, '_initialized'):
@@ -31,6 +37,7 @@ class KakuroGameUI:
 
     def _update(self) -> None:
         self.start_button.update()
+        self.field.update()
         pygame.display.update()
 
     def start(self) -> None:
