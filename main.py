@@ -10,19 +10,20 @@ def main():
     game_map = parse_map(map_path)
     validate_map(game_map)
     nodes, clues = get_data_structure(game_map)
-    print('Nodes were received:')
+    print('\nNodes were received:')
 
     for node in nodes:
-        print(node, '\n\n')
+        print(node, '\n')
 
 
     print('-------------------------------\n')
     
     print('Clues were received:\n')
 
+    node = nodes[0]
 
+    print(node.change_value(11, clues))
 
-    # [print(clue) for clue in clues ]
 
 
 
