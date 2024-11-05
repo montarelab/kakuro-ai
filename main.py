@@ -22,9 +22,10 @@ def main():
 
     node = nodes[0]
 
-    print(node.change_value(11, clues))
-
-
+    print(node.change_value(9, clues))
+    clue = clues[node.column]
+    print('Current sum is', clue.current_sum)
+    print('Is valid:', clue.is_valid())
 
 
 if __name__ == "__main__":

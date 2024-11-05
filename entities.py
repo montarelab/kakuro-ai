@@ -42,15 +42,15 @@ class Node:
         self.pos_x = pos_x
         self.pos_y = pos_y
 
-    id: int = -1
+    id: int
 
-    pos_x: int = 0
-    pos_y: int = 0
+    pos_x: int
+    pos_y: int
 
     value: int = 0
 
-    row: int = -1
-    column: int = -1
+    row: Optional[int] = None
+    column: Optional[int] = None
 
     right_node: Optional[int] = None
     left_node: Optional[int] = None
@@ -66,23 +66,29 @@ class Node:
         row_available_values = []
         col_available_values = []
 
-        if self.row != -1:
+        if self.row != None:
             row_available_values = nodelist_arr[self.row].get_available_values()
         else:
             row_available_values = set(range(1, 10))
             
-        if self.column != -1:
+        if self.column != None:
             col_available_values = nodelist_arr[self.column].get_available_values()
         else:
             col_available_values = set(range(1, 10))
 
         available_values = row_available_values & col_available_values
 
-        if value in available_values:
-            self.value = value
-            return True
+        if value not in available_values:
+            return False
         
-        return False
+        self.value = value        
+
+        if self.row != None:
+            nodelist_arr[self.row].update_sum()
+        if self.column != None:
+            nodelist_arr[self.column].update_sum()
+        
+        return True
         
 
 @dataclass
@@ -91,13 +97,10 @@ class NodeList:
     Class for graph traversal 
     '''
     id: int
-
-    sum_value: int
-    
     list_of_nodes: list[Node]
-
-    remained_value: int
-
+    sum_value: int
+    current_sum: int = 0    
+    
     def get_available_values(self) -> set[int]:
         '''
         Returns a list of available to chose unique values 
@@ -106,33 +109,37 @@ class NodeList:
         available_valuables = set(range(1, 10)) - used_values
         return available_valuables
 
-    def calculate_sum(self):        
+    def update_sum(self):        
         '''
-        1. Calculates a sum of row | column
-
-        2. Update 'remained_value'
+        Updates 'current_sum'
         '''
         used_values = [ node.value for node in self.list_of_nodes]
-        received_sum = used_values.sum()
-        
-        self.remained_value = self.sum_value - received_sum
-        
-        return received_sum
+        self.current_sum = sum(used_values)
+    
+    def is_valid(self) -> bool:
+        '''
+        returns: True if col | row is valid and its sum is completed. False otherwise 
+        '''
+
+        self.update_sum()
+        return self.sum_value == self.current_sum
+
+
 
 @dataclass
 class RowList(NodeList):
     '''
     Class for graph traversal . Represents row
     '''
-    pos_y: int
-    start_pos_x: int
-    length: int
+    pos_y: int = -1
+    start_pos_x: int = -1
+    length: int = -1
 
 @dataclass
 class ColList(NodeList):
     '''
     Class for graph traversal. Represents Column 
     '''
-    pos_x: int
-    start_pos_y: int
-    length: int
+    pos_x: int = -1
+    start_pos_y: int = -1
+    length: int = -1
