@@ -9,7 +9,6 @@ def display_matrix(matrix, width=30):
     Represents the matrix in console
     '''
     for row in matrix:
-        # Use list comprehension to format each element
         formatted_row = ''.join([f"{str(element):>{width}}" for element in row])
         print(formatted_row)
 
@@ -106,7 +105,6 @@ def get_data_structure(map: Map) -> tuple [list[Node], list[NodeList]]:
                 col_list = ColList(
                     id = len(all_clues),
                     sum_value = cell.sumCol, 
-                    remained_value=cell.sumCol,
                     pos_x=row_index,
                     start_pos_y=col_index,
                     length=0,
@@ -125,7 +123,6 @@ def get_data_structure(map: Map) -> tuple [list[Node], list[NodeList]]:
                 row_list = RowList(
                     id = len(all_clues),
                     sum_value = cell.sumRow,
-                    remained_value=cell.sumCol,
                     pos_y=col_index,
                     start_pos_x=row_index,
                     length=0,
