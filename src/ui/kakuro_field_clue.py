@@ -12,7 +12,7 @@ class KakuroFieldClue(KakuroFieldCell):
     border_thickness = 4
     font_size = 16
     font_family = 'Inter'
-    text_offset = 5
+    text_offset = 3
 
     def __init__(self, screen: Screen, position: Position, sum_row: int | None, sum_column: int | None):
         self._screen = screen
