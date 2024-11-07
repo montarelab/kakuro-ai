@@ -9,7 +9,7 @@ class KakuroFieldInput(KakuroFieldCell):
     default_color = (0, 0, 0)
     border_color = (215, 225, 244)
     block_size = 50
-    border_thickness = 2
+    border_thickness = 4
     font_size = 16
     font_family = 'Inter'
 
