@@ -52,6 +52,16 @@ class Button:
 
         return button_width, button_height
 
+    @property
+    def height(self) -> int:
+        _, button_height = self._get_button_size()
+        return button_height
+
+    @property
+    def width(self) -> int:
+        button_width, _ = self._get_button_size()
+        return button_width
+
     def _is_hovered(self):
         mouse_x, mouse_y = mouse.get_pos()
         button_width, button_height = self._get_button_size()
