@@ -8,7 +8,7 @@ class KakuroFieldClue(KakuroFieldCell):
     background_color = (255, 255, 255)
     default_color = (48, 125, 246)
     border_color = (215, 225, 244)
-    block_size = 50
+    block_size = 100
     border_thickness = 4
     font_size = 16
     font_family = 'Inter'
@@ -45,7 +45,7 @@ class KakuroFieldClue(KakuroFieldCell):
                 (self._position.x + self.block_size - self.border_thickness,
                  self._position.y + self.block_size - self.border_thickness)
             ]
-            draw.polygon(self._screen, self.border_color, top_right_triangle)
+            draw.polygon(self._screen, self.default_color, top_right_triangle)
 
         if self._bottom_left_text is None:
             bottom_left_triangle = [
@@ -54,7 +54,7 @@ class KakuroFieldClue(KakuroFieldCell):
                 (self._position.x + self.block_size - self.border_thickness,
                  self._position.y + self.block_size - self.border_thickness)
             ]
-            draw.polygon(self._screen, self.border_color, bottom_left_triangle)
+            draw.polygon(self._screen, self.default_color, bottom_left_triangle)
 
     def _update_top_right_text(self) -> None:
         if self._top_right_text is None:
