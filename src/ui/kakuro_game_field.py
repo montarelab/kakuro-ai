@@ -10,8 +10,8 @@ from src.ui.position import Position
 
 class KakuroGameField:
     def _row_column_to_position(self, row: int, column: int):
-        x = self._position.x + column * KakuroFieldBlock.block_size
-        y = self._position.y + row * KakuroFieldBlock.block_size
+        x = self._position.x + column * (KakuroFieldBlock.block_size - KakuroFieldBlock.border_thickness)
+        y = self._position.y + row * (KakuroFieldBlock.block_size - KakuroFieldBlock.border_thickness)
         return Position(x, y)
 
     def __init__(self, screen: Surface, position: Position):
@@ -31,8 +31,8 @@ class KakuroGameField:
             match map_cell:
                 case Block():
                     self._ui_cells.append(KakuroFieldBlock(self._screen, position))
-                case Clue():
-                    self._ui_cells.append(KakuroFieldClue())
+                case Clue(sumRow=sum_row, sumCol=sum_col):
+                    self._ui_cells.append(KakuroFieldClue(self._screen, position, sum_row, sum_col))
                 case Input():
                     self._ui_cells.append(KakuroFieldInput(self._screen, position, ""))
             current_column += 1

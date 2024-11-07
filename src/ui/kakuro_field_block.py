@@ -5,10 +5,10 @@ from src.ui.position import Position
 
 
 class KakuroFieldBlock(KakuroFieldCell):
-    background_color = (0, 0, 0)
+    background_color = (215, 225, 244)
     border_color = (215, 225, 244)
     block_size = 50
-    border_thickness = 2
+    border_thickness = 4
 
     def __init__(self, screen: Surface, position: Position):
         self._screen = screen
