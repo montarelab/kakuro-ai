@@ -1,4 +1,4 @@
-from entities import Map, Node, NodeList, Clue, Input, Block, RowList, ColList
+from src.parsing_validation.entities import Map, Node, NodeList, Clue, Input, Block, RowList, ColList
 from itertools import takewhile
 from typing import Optional
 import copy

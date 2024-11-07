@@ -17,6 +17,9 @@ class Button:
         self._font = py_freetype.Font(None, self.font_size)
         self._position = position
 
+    def set_position(self, position: Position) -> None:
+        self._position = position
+
     def update(self) -> None:
         self._update_background()
         self._update_text()

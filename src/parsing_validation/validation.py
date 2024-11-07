@@ -1,5 +1,5 @@
-from entities import Map, Clue, Input, Block
-from errors import ValidationError
+from src.parsing_validation.entities import Map, Clue, Input, Block
+from src.parsing_validation.errors import ValidationError
 
 
 def validate_map(map: Map):

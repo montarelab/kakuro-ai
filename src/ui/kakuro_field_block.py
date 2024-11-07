@@ -1,9 +1,10 @@
 from pygame import Surface, draw
 
+from src.ui.kakuro_field_cell import KakuroFieldCell
 from src.ui.position import Position
 
 
-class KakuroFieldBlock:
+class KakuroFieldBlock(KakuroFieldCell):
     background_color = (0, 0, 0)
     border_color = (215, 225, 244)
     block_size = 50
