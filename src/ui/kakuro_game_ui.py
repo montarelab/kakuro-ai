@@ -1,5 +1,6 @@
 import pygame
 
+from src.parsing_validation.entities import Map
 from src.ui.button import Button
 from src.ui.kakuro_game_field import KakuroGameField
 from src.ui.position import Position
@@ -15,17 +16,20 @@ class KakuroGameUI:
         return cls._instance
 
     def _init_ui_components(self) -> None:
-        self.canvas = pygame.display.set_mode((650, 700))
-        self.canvas.fill(self.background_color)
+        self._canvas = pygame.display.set_mode((650, 700))
+        self._canvas.fill(self.background_color)
 
         pygame.display.set_caption("Kakuro")
 
-        self.field = KakuroGameField(self.canvas, Position(100, 100))
-        start_button_position = Position(
-            self.field.position.x,
-            self.field.height + self.field.position.y + 20
+        self._field = KakuroGameField(self._canvas, Position(100, 100))
+        start_button_position = self._calculate_start_button_position()
+        self._start_button = Button(self._canvas, "Start".upper(), start_button_position)
+
+    def _calculate_start_button_position(self):
+        return Position(
+            self._field.position.x,
+            self._field.height + self._field.position.y + 20
         )
-        self.start_button = Button(self.canvas, "Start".upper(), start_button_position)
 
     def __init__(self) -> None:
         if hasattr(self, '_initialized'):
@@ -35,15 +39,12 @@ class KakuroGameUI:
         self._init_ui_components()
         self._initialized = True
 
-    def _update(self) -> None:
-        self.start_button.update()
-        self.field.update()
-        pygame.display.update()
+    def set_map(self, game_map: Map) -> None:
+        self._field.set_game_map(game_map)
 
-    def start(self) -> None:
-        exit = False
-        while not exit:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    exit = True
-            self._update()
+    def update(self) -> None:
+        start_button_position = self._calculate_start_button_position()
+        self._start_button.set_position(start_button_position)
+        self._start_button.update()
+        self._field.update()
+        pygame.display.update()

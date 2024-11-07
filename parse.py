@@ -1,6 +1,6 @@
 import json
 import sys
-from entities import Map, Block, Clue, Input
+from src.parsing_validation.entities import Map, Block, Clue, Input
 
 def parse_map(file_name: str):
     try:

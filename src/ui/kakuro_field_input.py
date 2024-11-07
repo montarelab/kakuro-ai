@@ -1,9 +1,10 @@
 from pygame import Surface, draw, freetype as py_freetype
 
+from src.ui.kakuro_field_cell import KakuroFieldCell
 from src.ui.position import Position
 
 
-class KakuroFieldInput:
+class KakuroFieldInput(KakuroFieldCell):
     background_color = (0, 0, 0)
     default_color = (255, 255, 255)
     border_color = (215, 225, 244)
