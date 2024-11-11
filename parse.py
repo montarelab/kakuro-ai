@@ -22,7 +22,7 @@ def parse_map(file_name: str):
             print(f'Map was parsed  successfully! Map name: \'{file_name}\'')
             return obj
     except Exception as error:
-        print('Error has been occured while reading file', file_name, 'with exception:\n', error)
+        print('Error has been occurred while reading file', file_name, 'with exception:\n', error)
         sys.exit(1)
 
 

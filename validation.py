@@ -15,7 +15,7 @@ def validate_map(map: Map):
 
     for cell in map.cells:
         if isinstance(cell, Clue):
-            if cell.sumRow == None and cell.sumCol == None:
+            if cell.sumRow is None and cell.sumCol is None:
                 raise ValidationError(f'In clue sum row or sum col must be defined')   
             
     print('Validation succeeded!')
