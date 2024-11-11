@@ -5,9 +5,9 @@ import copy
 
 
 def display_matrix(matrix, width=30):
-    '''
+    """
     Represents the matrix in console
-    '''
+    """
     for row in matrix:
         formatted_row = ''.join([f"{str(element):>{width}}" for element in row])
         print(formatted_row)
@@ -15,15 +15,15 @@ def display_matrix(matrix, width=30):
 
 
 def link_nodes(matrix, cols, rows) -> list[list[Optional[Node]]] :
-    '''
+    """
     1. Converts the matrix of elements (Block | Clue | Input) in the matrix of (Node | None)
     2. Creates links between neighbor Nodes
-    returns: the the matrix of (Node | None)
-    '''
+    returns: the matrix of (Node | None)
+    """
 
     id_counter = 0
 
-    # get 2d arrray of nodes without links
+    # get 2d array of nodes without links
     node_matrix = copy.deepcopy(matrix)
     for (row_index, row) in enumerate(matrix):
         for (col_index, cell) in enumerate(row):
@@ -36,7 +36,7 @@ def link_nodes(matrix, cols, rows) -> list[list[Optional[Node]]] :
     # add links to nodes
     for (row_index, row) in enumerate(node_matrix):
         for (col_index, node) in enumerate(row):
-            if node == None:
+            if node is None:
                 continue
 
             # add upper neighbour
@@ -70,12 +70,12 @@ def link_nodes(matrix, cols, rows) -> list[list[Optional[Node]]] :
 
 
 def get_data_structure(map: Map) -> tuple [list[Node], list[NodeList]]:
-    '''
+    """
     Converts the map of (Block | Clue | Input) parsef from JSON into ready sets of data structures ready for DFS algorithms
-    returns: 
+    returns:
         a) List of all the nodes of type Node
         b) List of all Rows in Columns represented by type NodeList
-    '''
+    """
 
     cols = map.dimensions['columns']
     rows = map.dimensions['rows']
@@ -101,7 +101,7 @@ def get_data_structure(map: Map) -> tuple [list[Node], list[NodeList]]:
                 continue
             
             # create a coll
-            if cell.sumCol != None:
+            if cell.sumCol is not None:
                 col_list = ColList(
                     id = len(all_clues),
                     sum_value = cell.sumCol, 
@@ -119,7 +119,7 @@ def get_data_structure(map: Map) -> tuple [list[Node], list[NodeList]]:
                 all_clues.append(col_list)
 
             # create a row
-            if cell.sumRow != None:
+            if cell.sumRow is not None:
                 row_list = RowList(
                     id = len(all_clues),
                     sum_value = cell.sumRow,
