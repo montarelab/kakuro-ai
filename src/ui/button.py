@@ -1,3 +1,6 @@
+from typing import Callable
+
+import pygame
 from pygame import Surface, mouse, freetype as py_freetype, draw
 from src.ui.position import Position
 
@@ -16,6 +19,9 @@ class Button:
         self._text = text
         self._font = py_freetype.Font(None, self.font_size)
         self._position = position
+        self._action = lambda: None
+        self._rectangle = None
+        self._clicked = False
 
     def set_position(self, position: Position) -> None:
         self._position = position
@@ -23,15 +29,16 @@ class Button:
     def update(self) -> None:
         self._update_background()
         self._update_text()
+        self._handle_action()
 
     def _update_background(self) -> None:
         button_width, button_height = self._get_button_size()
         rectangle_properties = (self._position.x, self._position.y, button_width, button_height)
 
         if self._is_hovered():
-            draw.rect(self._screen, self.hover_color, rectangle_properties, border_radius=self.border_radius)
+            self._rectangle = draw.rect(self._screen, self.hover_color, rectangle_properties, border_radius=self.border_radius)
         else:
-            draw.rect(self._screen, self.background_color, rectangle_properties, border_radius=self.border_radius)
+            self._rectangle = draw.rect(self._screen, self.background_color, rectangle_properties, border_radius=self.border_radius)
 
     def _update_text(self) -> None:
         padding_top, _, _, padding_left = self.paddings
@@ -70,3 +77,20 @@ class Button:
         y_hovered = self._position.y <= mouse_y <= self._position.y + button_height
 
         return x_hovered and y_hovered
+
+    def bind(self, action: Callable) -> None:
+        self._action = action
+
+    def _handle_action(self):
+        if self._rectangle is None or self._action is None:
+            return
+
+        mouse_position = mouse.get_pos()
+
+        if self._rectangle.collidepoint(mouse_position):
+            if pygame.mouse.get_pressed()[0] == 1 and self._clicked is False:
+                self._clicked = True
+                self._action()
+
+        if pygame.mouse.get_pressed()[0] == 0:
+            self._clicked = False

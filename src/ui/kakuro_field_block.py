@@ -7,7 +7,7 @@ from src.ui.position import Position
 class KakuroFieldBlock(KakuroFieldCell):
     background_color = (48, 125, 246)
     border_color = (215, 225, 244)
-    block_size = 100
+    block_size = 60
     border_thickness = 4
 
     def __init__(self, screen: Surface, position: Position):
