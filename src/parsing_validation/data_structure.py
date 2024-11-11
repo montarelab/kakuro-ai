@@ -1,4 +1,4 @@
-from entities import Map, Node, NodeList, Clue, Input, Block, RowList, ColList
+from src.parsing_validation.entities import Map, Node, NodeList, Clue, Input, Block, RowList, ColList
 from itertools import takewhile
 from typing import Optional
 import copy
@@ -13,8 +13,7 @@ def display_matrix(matrix, width=30):
         print(formatted_row)
 
 
-
-def link_nodes(matrix, cols, rows) -> list[list[Optional[Node]]] :
+def link_nodes(matrix, cols, rows) -> list[list[Optional[Node]]]:
     """
     1. Converts the matrix of elements (Block | Clue | Input) in the matrix of (Node | None)
     2. Creates links between neighbor Nodes
