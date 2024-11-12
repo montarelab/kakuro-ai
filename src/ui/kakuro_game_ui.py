@@ -1,5 +1,3 @@
-from datetime import datetime
-
 import pygame
 
 from src.parsing_validation.entities import Map
@@ -26,13 +24,29 @@ class KakuroGameUI:
         pygame.display.set_caption("Kakuro")
 
         self._field = KakuroGameField(self._canvas, Position(self.margin_horizontal, self.margin_vertical))
-        start_button_position = self._calculate_start_button_position()
-        self._start_button = Button(self._canvas, "Start".upper(), start_button_position)
-        self._start_button.bind(lambda: print(f"Start button clicked {datetime.now()}"))
+        start_button_position_1 = self._calculate_start_button_position_1()
+        start_button_position_2 = self._calculate_start_button_position_2()
+        start_button_position_3 = self._calculate_start_button_position_3()
 
-    def _calculate_start_button_position(self) -> Position:
+        self._start_button_1 = Button(self._canvas, "Start 1".upper(), start_button_position_1)
+        self._start_button_2 = Button(self._canvas, "Start 2".upper(), start_button_position_2)
+        self._start_button_3 = Button(self._canvas, "Start 3".upper(), start_button_position_3)
+
+    def _calculate_start_button_position_1(self) -> Position:
         return Position(
             self._field.position.x,
+            self._field.height + self._field.position.y + 20
+        )
+
+    def _calculate_start_button_position_2(self) -> Position:
+        return Position(
+            self._field.position.x + 150,
+            self._field.height + self._field.position.y + 20
+        )
+
+    def _calculate_start_button_position_3(self) -> Position:
+        return Position(
+            self._field.position.x + 300,
             self._field.height + self._field.position.y + 20
         )
 
@@ -41,7 +55,7 @@ class KakuroGameUI:
             self.margin_horizontal * 2 + self._field.width
         )
         self._screen_height = (
-            self.margin_vertical * 2 + self._field.height + self._start_button.height + 20
+            self.margin_vertical * 2 + self._field.height + self._start_button_1.height + 20
         )
         self._screen_size = (self._screen_width, self._screen_height)
 
@@ -62,10 +76,27 @@ class KakuroGameUI:
         self._calculate_screen_size()
         self._canvas = pygame.display.set_mode(self._screen_size)
         self._canvas.fill(self.background_color)
-        start_button_position = self._calculate_start_button_position()
-        self._start_button.set_position(start_button_position)
+
+        start_button_position_1 = self._calculate_start_button_position_1()
+        start_button_position_2 = self._calculate_start_button_position_2()
+        start_button_position_3 = self._calculate_start_button_position_3()
+
+        self._start_button_1.set_position(start_button_position_1)
+        self._start_button_2.set_position(start_button_position_2)
+        self._start_button_3.set_position(start_button_position_3)
 
     def update(self) -> None:
-        self._start_button.update()
+        self._start_button_1.update()
+        self._start_button_2.update()
+        self._start_button_3.update()
         self._field.update()
         pygame.display.update()
+
+    def bind_start_button_1(self, action) -> None:
+        self._start_button_1.bind(action)
+
+    def bind_start_button_2(self, action) -> None:
+        self._start_button_2.bind(action)
+
+    def bind_start_button_3(self, action) -> None:
+        self.bind_start_button_3(action)
