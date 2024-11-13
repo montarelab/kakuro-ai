@@ -1,0 +1,20 @@
+from typing import Callable
+
+from src.parsing_validation.data_structure import get_data_structure
+from src.parsing_validation.entities import Map
+
+
+class Algorithm:
+    def __init__(self, game_map: Map) -> None:
+        self._map = game_map
+        self._lambda = None
+
+    def solve(self) -> None:
+        pass
+
+    # don't know if we will use it
+    def is_solved(self) -> bool:
+        pass
+
+    def bind(self, lambda_function: Callable[[Map], None]) -> None:
+        self._lambda = lambda_function
