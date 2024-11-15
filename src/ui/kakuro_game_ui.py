@@ -1,3 +1,5 @@
+from typing import Any, Callable
+
 import pygame
 
 from src.parsing_validation.entities import Map
@@ -92,11 +94,11 @@ class KakuroGameUI:
         self._field.update()
         pygame.display.update()
 
-    def bind_start_button_1(self, action) -> None:
+    def bind_start_button_1(self, action: Callable[[], Any]) -> None:
         self._start_button_1.bind(action)
 
-    def bind_start_button_2(self, action) -> None:
+    def bind_start_button_2(self, action: Callable[[], Any]) -> None:
         self._start_button_2.bind(action)
 
-    def bind_start_button_3(self, action) -> None:
+    def bind_start_button_3(self, action: Callable[[], Any]) -> None:
         self.bind_start_button_3(action)
