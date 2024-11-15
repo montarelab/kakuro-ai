@@ -1,21 +1,11 @@
-import pygame_gui
-from pygame_gui.elements import UIButton
+from typing import Any, Callable
 
-from src.parsing_validation.entities import Map
-from src.ui.kakuro_game_field import KakuroGameField
-from src.ui.position import Position
-
-from typing import Callable
 import pygame
 
-
-def delta_time_decorator(clock: pygame.time.Clock) -> Callable:
-    def decorator(func: Callable) -> Callable:
-        def wrapper(*args, **kwargs) -> None:
-            delta = clock.tick(60) / 1000.0
-            return func(*args, delta_time=delta, **kwargs)
-        return wrapper
-    return decorator
+from src.parsing_validation.entities import Map
+from src.ui.button import Button
+from src.ui.kakuro_game_field import KakuroGameField
+from src.ui.position import Position
 
 
 class KakuroGameUI:
@@ -23,8 +13,6 @@ class KakuroGameUI:
     _instance = None
     margin_horizontal = 50
     margin_vertical = 50
-
-    clock = pygame.time.Clock()
 
     def __new__(cls) -> "KakuroGameUI":
         if cls._instance is None:
@@ -34,26 +22,33 @@ class KakuroGameUI:
     def _init_ui_components(self) -> None:
         self._canvas = pygame.display.set_mode((650, 700))
         self._canvas.fill(self.background_color)
+
         pygame.display.set_caption("Kakuro")
-        self._ui_manager = pygame_gui.UIManager((650, 700), "./src/themes/theme.json")
 
         self._field = KakuroGameField(self._canvas, Position(self.margin_horizontal, self.margin_vertical))
-        start_button_position = self._calculate_start_button_position()
+        start_button_position_1 = self._calculate_start_button_position_1()
+        start_button_position_2 = self._calculate_start_button_position_2()
+        start_button_position_3 = self._calculate_start_button_position_3()
 
-        self._start_button = UIButton(
-            relative_rect=pygame.Rect(
-                start_button_position.x,
-                start_button_position.y,
-                100, 50
-            ),
-            text="START",
-            manager=self._ui_manager
-        )
-        self._start_button.bind(pygame_gui.UI_BUTTON_PRESSED, lambda _: print("Button clicked"))
+        self._start_button_1 = Button(self._canvas, "backtracking".upper(), start_button_position_1)
+        self._start_button_2 = Button(self._canvas, "dfs".upper(), start_button_position_2)
+        self._start_button_3 = Button(self._canvas, "forward control".upper(), start_button_position_3)
 
-    def _calculate_start_button_position(self) -> Position:
+    def _calculate_start_button_position_1(self) -> Position:
         return Position(
-            self._field.position.x,
+            self._field.position.x - 15,
+            self._field.height + self._field.position.y + 20
+        )
+
+    def _calculate_start_button_position_2(self) -> Position:
+        return Position(
+            self._field.position.x + 190,
+            self._field.height + self._field.position.y + 20
+        )
+
+    def _calculate_start_button_position_3(self) -> Position:
+        return Position(
+            self._field.position.x + 295,
             self._field.height + self._field.position.y + 20
         )
 
@@ -62,7 +57,7 @@ class KakuroGameUI:
             self.margin_horizontal * 2 + self._field.width
         )
         self._screen_height = (
-            self.margin_vertical * 2 + self._field.height + self._start_button.rect.height + 20
+            self.margin_vertical * 2 + self._field.height + self._start_button_1.height + 20
         )
         self._screen_size = (self._screen_width, self._screen_height)
 
@@ -83,14 +78,27 @@ class KakuroGameUI:
         self._calculate_screen_size()
         self._canvas = pygame.display.set_mode(self._screen_size)
         self._canvas.fill(self.background_color)
-        start_button_position = self._calculate_start_button_position()
-        self._start_button.set_relative_position(start_button_position)
 
-    @delta_time_decorator(clock)
-    def update(self, delta_time: float) -> None:
-        for event in pygame.event.get():
-            self._ui_manager.process_events(event)
-        self._ui_manager.update(delta_time)
-        self._ui_manager.draw_ui(self._canvas)
+        start_button_position_1 = self._calculate_start_button_position_1()
+        start_button_position_2 = self._calculate_start_button_position_2()
+        start_button_position_3 = self._calculate_start_button_position_3()
+
+        self._start_button_1.set_position(start_button_position_1)
+        self._start_button_2.set_position(start_button_position_2)
+        self._start_button_3.set_position(start_button_position_3)
+
+    def update(self) -> None:
+        self._start_button_1.update()
+        self._start_button_2.update()
+        self._start_button_3.update()
         self._field.update()
         pygame.display.update()
+
+    def bind_start_backtracking(self, action: Callable[[], Any]) -> None:
+        self._start_button_1.bind(action)
+
+    def bind_start_dfs(self, action: Callable[[], Any]) -> None:
+        self._start_button_2.bind(action)
+
+    def bind_start_forward_control(self, action: Callable[[], Any]) -> None:
+        self._start_button_3.bind(action)

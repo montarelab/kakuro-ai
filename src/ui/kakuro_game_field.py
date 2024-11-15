@@ -48,13 +48,19 @@ class KakuroGameField:
     def width(self) -> int:
         if self._map is None:
             return 0
-        return KakuroFieldBlock.block_size * self._map.dimensions['columns']
+        return (
+            KakuroFieldBlock.block_size * self._map.dimensions['columns'] -
+            KakuroFieldBlock.border_thickness * (self._map.dimensions['columns'] - 1)
+        )
 
     @property
     def height(self) -> int:
         if self._map is None:
             return 0
-        return KakuroFieldBlock.block_size * self._map.dimensions['rows']
+        return (
+            KakuroFieldBlock.block_size * self._map.dimensions['rows'] -
+            KakuroFieldBlock.border_thickness * (self._map.dimensions['rows'] - 1)
+        )
 
     def update(self):
         for block in self._ui_cells:
