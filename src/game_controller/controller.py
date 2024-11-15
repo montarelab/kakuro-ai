@@ -25,6 +25,7 @@ class KakuroGameController:
         self._map_path = map_path
         self._map = load_map(map_path)
         self._ui.set_map(self._map)
+        self.set_buttons_bindings()
 
     def start(self) -> NoReturn:
         exit_ui = False
@@ -50,7 +51,6 @@ class KakuroGameController:
 
     def start_algorithm(self, algorithm_name: str) -> None:
         self.reload_map()
-
         match algorithm_name:
             case 'backtracking':
                 self._algorithm = Algorithm(self._map)
@@ -63,3 +63,8 @@ class KakuroGameController:
 
         self._algorithm.bind(self.update_ui)
         self._algorithm.solve()
+
+    def set_buttons_bindings(self) -> None:
+        self._ui.bind_start_dfs(lambda: self.start_algorithm('dfs'))
+        self._ui.bind_start_backtracking(lambda: self.start_algorithm('backtracking'))
+        self._ui.bind_start_forward_control(lambda: self.start_algorithm('forward_control'))
