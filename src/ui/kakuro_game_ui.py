@@ -26,27 +26,28 @@ class KakuroGameUI:
         pygame.display.set_caption("Kakuro")
 
         self._field = KakuroGameField(self._canvas, Position(self.margin_horizontal, self.margin_vertical))
-        start_button_position_1 = self._calculate_start_button_position_1()
-        start_button_position_2 = self._calculate_start_button_position_2()
-        start_button_position_3 = self._calculate_start_button_position_3()
 
-        self._start_button_1 = Button(self._canvas, "backtracking".upper(), start_button_position_1)
-        self._start_button_2 = Button(self._canvas, "dfs".upper(), start_button_position_2)
-        self._start_button_3 = Button(self._canvas, "forward control".upper(), start_button_position_3)
+        start_backtracking_button_position = self._calculate_start_backtracking_button_position()
+        start_dfs_button_position = self._calculate_start_dfs_button_position()
+        start_forward_button_position = self._calculate_start_forward_button_position()
 
-    def _calculate_start_button_position_1(self) -> Position:
+        self._start_backtracking_button = Button(self._canvas, "backtracking".upper(), start_backtracking_button_position)
+        self._start_dfs_button = Button(self._canvas, "dfs".upper(), start_dfs_button_position)
+        self._start_forward_button = Button(self._canvas, "forward control".upper(), start_forward_button_position)
+
+    def _calculate_start_backtracking_button_position(self) -> Position:
         return Position(
             self._field.position.x - 15,
             self._field.height + self._field.position.y + 20
         )
 
-    def _calculate_start_button_position_2(self) -> Position:
+    def _calculate_start_dfs_button_position(self) -> Position:
         return Position(
             self._field.position.x + 190,
             self._field.height + self._field.position.y + 20
         )
 
-    def _calculate_start_button_position_3(self) -> Position:
+    def _calculate_start_forward_button_position(self) -> Position:
         return Position(
             self._field.position.x + 295,
             self._field.height + self._field.position.y + 20
@@ -57,7 +58,7 @@ class KakuroGameUI:
             self.margin_horizontal * 2 + self._field.width
         )
         self._screen_height = (
-            self.margin_vertical * 2 + self._field.height + self._start_button_1.height + 20
+                self.margin_vertical * 2 + self._field.height + self._start_backtracking_button.height + 20
         )
         self._screen_size = (self._screen_width, self._screen_height)
 
@@ -79,26 +80,26 @@ class KakuroGameUI:
         self._canvas = pygame.display.set_mode(self._screen_size)
         self._canvas.fill(self.background_color)
 
-        start_button_position_1 = self._calculate_start_button_position_1()
-        start_button_position_2 = self._calculate_start_button_position_2()
-        start_button_position_3 = self._calculate_start_button_position_3()
+        start_backtracking_button_position = self._calculate_start_backtracking_button_position()
+        start_dfs_button_position = self._calculate_start_dfs_button_position()
+        start_forward_button_position = self._calculate_start_forward_button_position()
 
-        self._start_button_1.set_position(start_button_position_1)
-        self._start_button_2.set_position(start_button_position_2)
-        self._start_button_3.set_position(start_button_position_3)
+        self._start_backtracking_button.set_position(start_backtracking_button_position)
+        self._start_dfs_button.set_position(start_dfs_button_position)
+        self._start_forward_button.set_position(start_forward_button_position)
 
     def update(self) -> None:
-        self._start_button_1.update()
-        self._start_button_2.update()
-        self._start_button_3.update()
+        self._start_backtracking_button.update()
+        self._start_dfs_button.update()
+        self._start_forward_button.update()
         self._field.update()
         pygame.display.update()
 
     def bind_start_backtracking(self, action: Callable[[], Any]) -> None:
-        self._start_button_1.bind(action)
+        self._start_backtracking_button.bind(action)
 
     def bind_start_dfs(self, action: Callable[[], Any]) -> None:
-        self._start_button_2.bind(action)
+        self._start_dfs_button.bind(action)
 
     def bind_start_forward_control(self, action: Callable[[], Any]) -> None:
-        self._start_button_3.bind(action)
+        self._start_forward_button.bind(action)
