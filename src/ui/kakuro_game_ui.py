@@ -30,25 +30,25 @@ class KakuroGameUI:
         start_button_position_2 = self._calculate_start_button_position_2()
         start_button_position_3 = self._calculate_start_button_position_3()
 
-        self._start_button_1 = Button(self._canvas, "Start 1".upper(), start_button_position_1)
-        self._start_button_2 = Button(self._canvas, "Start 2".upper(), start_button_position_2)
-        self._start_button_3 = Button(self._canvas, "Start 3".upper(), start_button_position_3)
+        self._start_button_1 = Button(self._canvas, "backtracking".upper(), start_button_position_1)
+        self._start_button_2 = Button(self._canvas, "dfs".upper(), start_button_position_2)
+        self._start_button_3 = Button(self._canvas, "forward control".upper(), start_button_position_3)
 
     def _calculate_start_button_position_1(self) -> Position:
         return Position(
-            self._field.position.x,
+            self._field.position.x - 15,
             self._field.height + self._field.position.y + 20
         )
 
     def _calculate_start_button_position_2(self) -> Position:
         return Position(
-            self._field.position.x + 150,
+            self._field.position.x + 190,
             self._field.height + self._field.position.y + 20
         )
 
     def _calculate_start_button_position_3(self) -> Position:
         return Position(
-            self._field.position.x + 300,
+            self._field.position.x + 295,
             self._field.height + self._field.position.y + 20
         )
 
