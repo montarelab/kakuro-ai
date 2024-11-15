@@ -10,6 +10,7 @@ class Algorithm:
         self._lambda = None
 
     def solve(self) -> None:
+        print('Solving algorithm...')
         pass
 
     def bind(self, lambda_function: Callable[[Map], None]) -> None:
