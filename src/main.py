@@ -7,7 +7,7 @@ initial_map = "maps/9x9_easy.json"
 
 def main():
     ui = KakuroGameUI()
-    controller = KakuroGameController(ui, initial_map)
+    controller = KakuroGameController(ui, Path(initial_map))
     controller.start()
 
 

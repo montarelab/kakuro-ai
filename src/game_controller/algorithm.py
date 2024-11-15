@@ -12,9 +12,5 @@ class Algorithm:
     def solve(self) -> None:
         pass
 
-    # don't know if we will use it
-    def is_solved(self) -> bool:
-        pass
-
     def bind(self, lambda_function: Callable[[Map], None]) -> None:
         self._lambda = lambda_function
