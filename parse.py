@@ -1,8 +1,11 @@
 import json
 import sys
+from pathlib import Path
+
 from src.parsing_validation.entities import Map, Block, Clue, Input
 
-def parse_map(file_name: str):
+
+def parse_map(file_name: Path):
     try:
         with open(file_name, 'r') as file:
             json_data = json.load(file)
@@ -24,8 +27,6 @@ def parse_map(file_name: str):
     except Exception as error:
         print('Error has been occurred while reading file', file_name, 'with exception:\n', error)
         sys.exit(1)
-
-
 
 # map = parse_map('maps/map1.json')
 # cell = map.cells[4]

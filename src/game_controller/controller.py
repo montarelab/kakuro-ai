@@ -5,21 +5,21 @@ from typing import NoReturn
 import pygame
 
 from src.game_controller.algorithm import Algorithm
-from src.parsing_validation.data_structure import get_data_structure
+from src.game_controller.unknownAlgorithmError import UnknownAlgorithmError
 from src.parsing_validation.entities import Map
 from src.parsing_validation.parse import parse_map
 from src.parsing_validation.validation import validate_map
 from src.ui.kakuro_game_ui import KakuroGameUI
 
 
-def load_map(path: str) -> Map:
-    game_map = parse_map(path)
+def load_map(path: Path) -> Map:
+    game_map = parse_map(path.absolute())
     validate_map(game_map)
     return game_map
 
 
 class KakuroGameController:
-    def __init__(self, ui: KakuroGameUI, map_path: str) -> None:
+    def __init__(self, ui: KakuroGameUI, map_path: Path) -> None:
         self._ui = ui
         self._algorithm = None
         self._map_path = map_path
@@ -59,7 +59,7 @@ class KakuroGameController:
             case 'forward_control':
                 self._algorithm = Algorithm(self._map)
             case _:
-                raise ValueError(f'Algorithm {algorithm_name} is not supported')
+                raise UnknownAlgorithmError(f'Algorithm {algorithm_name} is not supported')
 
         self._algorithm.bind(self.update_ui)
         self._algorithm.solve()
