@@ -42,8 +42,10 @@ class Node:
         self.pos_x = pos_x
         self.pos_y = pos_y
 
-    id: int
+    def __str__(self):
+        return f'id: {self.id}, position: ({self.pos_x}:{self.pos_y})'
 
+    id: int
     pos_x: int
     pos_y: int
 
@@ -57,23 +59,12 @@ class Node:
     upper_node: Optional[int] = None
     bottom_node: Optional[int] = None
 
-    def change_value(self, value, nodelist_arr) -> bool:
+    def try_change_value(self, value, clues) -> bool:
         """
         Tries to change value of a node
         returns: status as bool
         """
-
-        if self.row is not None:
-            row_available_values = nodelist_arr[self.row].get_available_values()
-        else:
-            row_available_values = set(range(1, 10))
-            
-        if self.column is not None:
-            col_available_values = nodelist_arr[self.column].get_available_values()
-        else:
-            col_available_values = set(range(1, 10))
-
-        available_values = row_available_values & col_available_values
+        available_values = self.get_possible_values(clues)
 
         if value not in available_values:
             return False
@@ -81,15 +72,28 @@ class Node:
         self.value = value        
 
         if self.row is not None:
-            nodelist_arr[self.row].update_sum()
+            clues[self.row].update_sum()
         if self.column is not None:
-            nodelist_arr[self.column].update_sum()
+            clues[self.column].update_sum()
         
         return True
+
+    def get_possible_values(self, nodelist_arr) -> list[int]:
+        if self.row is not None:
+            row_available_values = nodelist_arr[self.row].get_available_values()
+        else:
+            row_available_values = set(range(1, 10))
+
+        if self.column is not None:
+            col_available_values = nodelist_arr[self.column].get_available_values()
+        else:
+            col_available_values = set(range(1, 10))
+
+        return row_available_values & col_available_values
         
 
 @dataclass
-class NodeList:
+class ClueNode:
     """
     Class for graph traversal
     """
@@ -124,7 +128,7 @@ class NodeList:
 
 
 @dataclass
-class RowList(NodeList):
+class RowList(ClueNode):
     """
     Class for graph traversal . Represents row
     """
@@ -133,10 +137,21 @@ class RowList(NodeList):
     length: int = -1
 
 @dataclass
-class ColList(NodeList):
+class ColList(ClueNode):
     """
     Class for graph traversal. Represents Column
     """
     pos_x: int = -1
     start_pos_y: int = -1
     length: int = -1
+
+@dataclass
+class Game:
+
+    def __init__(self):
+        self.nodes = []
+        self.clues = []
+
+    nodes: list[Node]
+    clues: list[ClueNode]
+    map: Map = None

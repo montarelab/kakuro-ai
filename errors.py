@@ -3,4 +3,4 @@ class ValidationError(Exception):
         super().__init__(message)
     
     def __str__(self):
-        return {self.message}
+        return self.message
