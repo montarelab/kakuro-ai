@@ -1,4 +1,4 @@
-from entities import Map, Node, NodeList, Clue, Input, Block, RowList, ColList
+from entities import Map, Node, ClueNode, Clue, Input, Block, RowList, ColList
 from itertools import takewhile
 from typing import Optional
 import copy
@@ -69,7 +69,7 @@ def link_nodes(matrix, cols, rows) -> list[list[Optional[Node]]] :
 
 
 
-def get_data_structure(map: Map) -> tuple [list[Node], list[NodeList]]:
+def get_data_structure(map: Map) -> tuple [list[Node], list[ClueNode]]:
     """
     Converts the map of (Block | Clue | Input) parsef from JSON into ready sets of data structures ready for DFS algorithms
     returns:
