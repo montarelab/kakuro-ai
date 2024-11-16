@@ -1,5 +1,5 @@
-from entities import Map, Clue, Input, Block
-from errors import ValidationError
+from src.parsing_validation.entities import Map, Clue, Input, Block
+from src.parsing_validation.errors import ValidationError
 
 
 def validate_map(map: Map):
@@ -15,7 +15,7 @@ def validate_map(map: Map):
 
     for cell in map.cells:
         if isinstance(cell, Clue):
-            if cell.sumRow is None and cell.sumCol is None:
+            if cell.sumRow == None and cell.sumCol == None:
                 raise ValidationError(f'In clue sum row or sum col must be defined')   
             
     print('Validation succeeded!')

@@ -1,14 +1,15 @@
 from typing import Optional
 from dataclasses import dataclass
 
-# data structure for parsing
 
+# data structure for parsing
 @dataclass
 class Block:
     """
     Map class: Indicates a block on a map
     """
     pass
+
 
 @dataclass
 class Clue:
@@ -18,12 +19,14 @@ class Clue:
     sumRow: Optional[int] = None
     sumCol: Optional[int] = None
 
+
 @dataclass
 class Input:
     """
     Map class: Indicates an input on a map
     """
     pass
+
 
 @dataclass
 class Map:
@@ -68,14 +71,14 @@ class Node:
 
         if value not in available_values:
             return False
-        
-        self.value = value        
+
+        self.value = value
 
         if self.row is not None:
             clues[self.row].update_sum()
         if self.column is not None:
             clues[self.column].update_sum()
-        
+
         return True
 
     def get_possible_values(self, nodelist_arr) -> list[int]:
@@ -100,8 +103,8 @@ class ClueNode:
     id: int
     list_of_nodes: list[Node]
     sum_value: int
-    current_sum: int = 0    
-    
+    current_sum: int = 0
+
     def get_available_values(self) -> set[int]:
         """
         Returns a list of available to chose unique values
