@@ -5,33 +5,33 @@
   },
   "cells": [
     { "type": "block" },
-    { "type": "clue", "sumRow": null, "sumCol": 16 },
-    { "type": "clue", "sumRow": null, "sumCol": 24 },
     { "type": "block" },
-    { "type": "clue", "sumRow": null, "sumCol": 17 },
-
-    { "type": "clue", "sumRow": 17, "sumCol": null },
-    { "type": "input" },
-    { "type": "input" },
-    { "type": "input" },
-    { "type": "input" },
-
-    { "type": "clue", "sumRow": 16, "sumCol": null },
-    { "type": "input" },
-    { "type": "input" },
-    { "type": "input" },
-    { "type": "input" },
+    { "type": "block" },
+    { "type": "clue", "sumRow": null, "sumCol": 21 },
+    { "type": "clue", "sumRow": null, "sumCol": 10 },
 
     { "type": "block" },
-    { "type": "clue", "sumRow": null, "sumCol": 15 },
+    { "type": "block" },
+    { "type": "clue", "sumRow": 8, "sumCol": 6 },
+    { "type": "input" },
+    { "type": "input" },
+
+     { "type": "block" },
+    { "type": "clue", "sumRow": 19, "sumCol": 4 },
     { "type": "input" },
     { "type": "input" },
     { "type": "input" },
 
-    { "type": "clue", "sumRow": 24, "sumCol": null },
+    { "type": "clue", "sumRow": 11, "sumCol": null },
     { "type": "input" },
     { "type": "input" },
     { "type": "input" },
+    { "type": "block" },
+
+    { "type": "clue", "sumRow": 3, "sumCol": null },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "block" },
     { "type": "block" }
   ]
 }
