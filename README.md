@@ -5,6 +5,7 @@ An AI-powered solver for the Kakuro puzzle game, using Depth-First Search (DFS) 
 
 ## Proposed tasks
 
+- [ ] GUI
 - [ ]  Preparation
     - [ ]  Find 5 maps: 4 of possible to solve + 1 impossible to solve
     - [ ]  Decide what text format to use
