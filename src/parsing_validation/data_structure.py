@@ -1,4 +1,4 @@
-from entities import Map, Node, ClueNode, Clue, Input, Block, RowList, ColList
+from src.parsing_validation.entities import Map, Node, ClueNode, Clue, Input, Block, RowList, ColList
 from itertools import takewhile
 from typing import Optional
 import copy
@@ -68,7 +68,7 @@ def link_nodes(matrix, cols, rows) -> list[list[Optional[Node]]]:
 
 
 
-def get_data_structure(map: Map) -> tuple [list[Node], list[ClueNode]]:
+def get_data_structure(game_map: Map) -> tuple [list[Node], list[ClueNode]]:
     """
     Converts the map of (Block | Clue | Input) parsef from JSON into ready sets of data structures ready for DFS algorithms
     returns:
@@ -76,13 +76,13 @@ def get_data_structure(map: Map) -> tuple [list[Node], list[ClueNode]]:
         b) List of all Rows in Columns represented by type NodeList
     """
 
-    cols = map.dimensions['columns']
-    rows = map.dimensions['rows']
+    cols = game_map.dimensions['columns']
+    rows = game_map.dimensions['rows']
     cells_matrix = list()
 
     # Convert 1D array of cells in 2D array to simplify further processing 
     for i in range(rows):
-        row = map.cells[i * cols : (i + 1) * cols]
+        row = game_map.cells[i * cols: (i + 1) * cols]
         cells_matrix.append(row)
 
 

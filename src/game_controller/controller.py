@@ -5,6 +5,10 @@ from typing import NoReturn
 import pygame
 
 from src.game_controller.algorithm import Algorithm
+from src.game_controller.backtracking import Backtracking
+from src.game_controller.dfs import Dfs
+from src.game_controller.feedforward import FeedForward
+
 from src.game_controller.unknownAlgorithmError import UnknownAlgorithmError
 from src.parsing_validation.entities import Map
 from src.parsing_validation.parse import parse_map
@@ -53,11 +57,11 @@ class KakuroGameController:
         self.reload_map()
         match algorithm_name:
             case 'backtracking':
-                self._algorithm = Algorithm(self._map)
+                self._algorithm = Backtracking(self._map)
             case 'dfs':
-                self._algorithm = Algorithm(self._map)
+                self._algorithm = Dfs(self._map)
             case 'forward_control':
-                self._algorithm = Algorithm(self._map)
+                self._algorithm = FeedForward(self._map)
             case _:
                 raise UnknownAlgorithmError(f'Algorithm {algorithm_name} is not supported')
 
