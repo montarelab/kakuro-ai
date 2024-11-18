@@ -33,8 +33,10 @@ class KakuroGameField:
                     self._ui_cells.append(KakuroFieldBlock(self._screen, position))
                 case Clue(sumRow=sum_row, sumCol=sum_col):
                     self._ui_cells.append(KakuroFieldClue(self._screen, position, sum_row, sum_col))
-                case Input():
+                case Input(value=0):
                     self._ui_cells.append(KakuroFieldInput(self._screen, position, ""))
+                case Input(value=value):
+                    self._ui_cells.append(KakuroFieldInput(self._screen, position, str(value)))
             current_column += 1
             if current_column == self._map.dimensions['columns']:
                 current_column = 0
