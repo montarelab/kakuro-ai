@@ -65,7 +65,7 @@ class Node:
         Tries to change value of a node
         returns: status as bool
         """
-        available_values = self.get_possible_values(clues)
+        available_values = {0} | self.get_possible_values(clues)
 
         if value not in available_values:
             return False
@@ -107,8 +107,16 @@ class ClueNode:
         """
         Returns a list of available to chose unique values
         """
+
+        len_empty_cells = len([node for node in self.list_of_nodes if node.value == 0])
+        allocated_number = sum(list(range(1, len_empty_cells )))
+
         used_values = set([ node.value for node in self.list_of_nodes ])
         available_valuables = set(range(1, 10)) - used_values
+
+        remained_sum = self.sum_value - self.current_sum
+        available_valuables = set(value for value in available_valuables if value <= remained_sum - allocated_number)
+
         return available_valuables
 
     def update_sum(self):

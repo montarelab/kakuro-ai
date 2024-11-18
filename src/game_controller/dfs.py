@@ -24,7 +24,8 @@ class Dfs(Algorithm):
 
             # Initialize or continue processing the node
             if not stack or stack[-1][0] != current_index:
-                possible_values = node.get_possible_values(self._clues)
+                l = list(node.get_possible_values(self._clues))
+                possible_values = reversed(l)
                 stack.append((current_index, iter(possible_values)))
 
             # Try the next value for the current node

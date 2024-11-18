@@ -29,7 +29,7 @@ class Backtracking(Algorithm):
                 return True
 
             node = self._blank_nodes[index]
-            possible_values = node.get_possible_values(self._clues)
+            possible_values = reversed(list(node.get_possible_values(self._clues)))
 
             for value in possible_values:
                 if node.try_change_value(value, self._clues):  # Check if assigning this value is valid
