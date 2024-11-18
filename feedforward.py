@@ -1,4 +1,4 @@
-from entities import Node, ClueNode
+from src.parsing_validation.entities import Node, ClueNode
 
 
 def solve_kakuro_feedforward(blank_nodes: list[Node], clues: list[ClueNode]) -> bool:

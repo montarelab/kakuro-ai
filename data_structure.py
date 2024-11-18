@@ -1,4 +1,4 @@
-from src.parsing_validation.entities import Map, Node, NodeList, Clue, Input, Block, RowList, ColList
+from src.parsing_validation.entities import Map, Node, ClueNode, Clue, Input, Block, RowList, ColList
 from itertools import takewhile
 from typing import Optional
 import copy
@@ -17,25 +17,25 @@ def link_nodes(matrix, cols, rows) -> list[list[Optional[Node]]]:
     """
     1. Converts the matrix of elements (Block | Clue | Input) in the matrix of (Node | None)
     2. Creates links between neighbor Nodes
-    returns: the the matrix of (Node | None)
+    returns: the matrix of (Node | None)
     """
 
     id_counter = 0
 
-    # get 2d arrray of nodes without links
+    # get 2d array of nodes without links
     node_matrix = copy.deepcopy(matrix)
     for (row_index, row) in enumerate(matrix):
         for (col_index, cell) in enumerate(row):
             if isinstance(cell, Input):
-                node_matrix[row_index][col_index] = Node(id=id_counter, pos_x=col_index, pos_y=row_index)
-                id_counter += 1
+               node_matrix[row_index][col_index] = Node(id=id_counter, pos_x=col_index, pos_y=row_index)
+               id_counter+=1
             else:
                 node_matrix[row_index][col_index] = None
 
     # add links to nodes
     for (row_index, row) in enumerate(node_matrix):
         for (col_index, node) in enumerate(row):
-            if node == None:
+            if node is None:
                 continue
 
             # add upper neighbour
@@ -43,16 +43,16 @@ def link_nodes(matrix, cols, rows) -> list[list[Optional[Node]]]:
                 selected_node = node_matrix[row_index - 1][col_index]
                 if isinstance(selected_node, Node):
                     node.upper_node = selected_node.id
-
+            
             # add bottom neighbour
-            if row_index != rows - 1:
+            if row_index != rows - 1:    
                 selected_node = node_matrix[row_index + 1][col_index]
                 if isinstance(selected_node, Node):
                     node.bottom_node = selected_node.id
 
             # add left neighbour
             if col_index != 0:
-                selected_node = node_matrix[row_index][col_index - 1]
+                selected_node = node_matrix[row_index][col_index -1]
                 if isinstance(selected_node, Node):
                     node.left_node = selected_node.id
 
@@ -66,7 +66,9 @@ def link_nodes(matrix, cols, rows) -> list[list[Optional[Node]]]:
     return node_matrix
 
 
-def get_data_structure(map: Map) -> tuple[list[Node], list[NodeList]]:
+
+
+def get_data_structure(game_map: Map) -> tuple [list[Node], list[ClueNode]]:
     """
     Converts the map of (Block | Clue | Input) parsef from JSON into ready sets of data structures ready for DFS algorithms
     returns:
@@ -74,14 +76,15 @@ def get_data_structure(map: Map) -> tuple[list[Node], list[NodeList]]:
         b) List of all Rows in Columns represented by type NodeList
     """
 
-    cols = map.dimensions['columns']
-    rows = map.dimensions['rows']
+    cols = game_map.dimensions['columns']
+    rows = game_map.dimensions['rows']
     cells_matrix = list()
 
     # Convert 1D array of cells in 2D array to simplify further processing 
     for i in range(rows):
-        row = map.cells[i * cols: (i + 1) * cols]
+        row = game_map.cells[i * cols: (i + 1) * cols]
         cells_matrix.append(row)
+
 
     # display_matrix(cells_matrix)
 
@@ -90,22 +93,22 @@ def get_data_structure(map: Map) -> tuple[list[Node], list[NodeList]]:
 
     # Get array of clues: rows and columns
     all_clues = list()
-    for (row_index, row) in enumerate(cells_matrix):  # traverse the cell_matrix
+    for (row_index, row) in enumerate(cells_matrix): # traverse the cell_matrix
         for (col_index, cell) in enumerate(row):
 
-            if not isinstance(cell, Clue):
+            if not isinstance(cell, Clue): 
                 continue
-
+            
             # create a coll
-            if cell.sumCol != None:
+            if cell.sumCol is not None:
                 col_list = ColList(
-                    id=len(all_clues),
-                    sum_value=cell.sumCol,
+                    id = len(all_clues),
+                    sum_value = cell.sumCol, 
                     pos_x=row_index,
                     start_pos_y=col_index,
                     length=0,
                     list_of_nodes=[])
-
+                
                 # define the length, and get nodes for it
                 array = [row[col_index] for row in node_matrix[row_index + 1:]]
                 nodes = list(takewhile(lambda x: isinstance(x, Node), array))
@@ -115,21 +118,22 @@ def get_data_structure(map: Map) -> tuple[list[Node], list[NodeList]]:
                 all_clues.append(col_list)
 
             # create a row
-            if cell.sumRow != None:
+            if cell.sumRow is not None:
                 row_list = RowList(
-                    id=len(all_clues),
-                    sum_value=cell.sumRow,
+                    id = len(all_clues),
+                    sum_value = cell.sumRow,
                     pos_y=col_index,
                     start_pos_x=row_index,
                     length=0,
                     list_of_nodes=[])
-
+                
                 # define the length, and get nodes for it
                 array = node_matrix[row_index][col_index + 1:]
                 nodes = list(takewhile(lambda x: isinstance(x, Node), array))
                 [setattr(node, 'row', row_list.id) for node in nodes]
                 row_list.length = len(nodes)
                 row_list.list_of_nodes = nodes
-                all_clues.append(row_list)
+                all_clues.append(row_list)    
 
-    return [node for row in node_matrix for node in row if isinstance(node, Node)], all_clues
+    return [node for row in node_matrix for node in row if isinstance(node, Node) ], all_clues
+

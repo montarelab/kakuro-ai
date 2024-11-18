@@ -23,6 +23,7 @@ class Input:
     """
     Map class: Indicates an input on a map
     """
+    value: int = 0
     pass
 
 @dataclass

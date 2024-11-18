@@ -8,10 +8,11 @@ class Algorithm:
     def __init__(self, game_map: Map) -> None:
         self._map = game_map
         self._lambda = None
+        self._blank_nodes, self._clues = get_data_structure(game_map)
 
-    def solve(self) -> None:
+    def solve(self) -> bool:
         print('Solving algorithm...')
-        pass
+        return False
 
     def bind(self, lambda_function: Callable[[Map], None]) -> None:
         self._lambda = lambda_function
