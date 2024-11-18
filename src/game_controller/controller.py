@@ -1,7 +1,7 @@
 import time
 from pathlib import Path
 from typing import NoReturn
-import time
+
 import pygame
 
 from src.game_controller.backtracking import Backtracking
@@ -50,7 +50,7 @@ class KakuroGameController:
     def update_ui(self, game_map: Map) -> None:
         self._ui.set_map(game_map)
         self._ui.update()
-        time.sleep(0.1)
+        self._idle_ui(10)
 
     def start_algorithm(self, algorithm_name: str) -> None:
         self.reload_map()
@@ -71,3 +71,8 @@ class KakuroGameController:
         self._ui.bind_start_dfs(lambda: self.start_algorithm('dfs'))
         self._ui.bind_start_backtracking(lambda: self.start_algorithm('backtracking'))
         self._ui.bind_start_forward_control(lambda: self.start_algorithm('forward_control'))
+
+    def _idle_ui(self, idle_seconds: float) -> None:
+        idle_start_time = time.time()
+        while time.time() - idle_start_time < idle_seconds:
+            self._ui.update()
