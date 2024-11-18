@@ -51,7 +51,7 @@ class KakuroGameController:
     def update_ui(self, game_map: Map) -> None:
         self._ui.set_map(game_map)
         self._ui.update()
-        time.sleep(1)
+        time.sleep(0.2)
 
     def start_algorithm(self, algorithm_name: str) -> None:
         self.reload_map()
