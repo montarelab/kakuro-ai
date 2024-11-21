@@ -1,0 +1,63 @@
+{
+  "dimensions": {
+    "rows": 7,
+    "columns": 7
+  },
+  "cells": [
+    { "type": "block" },
+    { "type": "block" },
+    { "type": "clue", "sumRow": null, "sumCol": 33 },
+    { "type": "clue", "sumRow": null, "sumCol": 12 },
+    { "type": "clue", "sumRow": null, "sumCol": 14 },
+    { "type": "clue", "sumRow": null, "sumCol": 26 },
+    { "type": "block" },
+
+    { "type": "block" },
+    { "type": "clue", "sumRow": 21, "sumCol": null },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "clue", "sumRow": null, "sumCol": 11 },
+
+    { "type": "block" },
+    { "type": "clue", "sumRow": 15, "sumCol": 8 },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "input" },
+
+    { "type": "clue", "sumRow": 7, "sumCol": null },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "block" },
+    { "type": "clue", "sumRow": 3, "sumCol": null },
+    { "type": "input" },
+    { "type": "input" },
+
+    { "type": "clue", "sumRow": 9, "sumCol": null },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "clue", "sumRow": null, "sumCol": 6 },
+    { "type": "clue", "sumRow": 16, "sumCol": 9 },
+    { "type": "input" },
+    { "type": "input" },
+
+    { "type": "clue", "sumRow": 33, "sumCol": null },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "block" },
+
+    { "type": "block" },
+    { "type": "clue", "sumRow": 15, "sumCol": null },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "block" }
+  ]
+}

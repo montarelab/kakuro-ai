@@ -11,10 +11,10 @@
     { "type": "clue", "sumRow": null, "sumCol": 4 },
     { "type": "block" },
     { "type": "block" },
-    { "type": "block" },
-    { "type": "block" },
+    { "type": "clue", "sumRow": null, "sumCol": 4 },
+    { "type": "clue", "sumRow": null, "sumCol": 3 },
 
-    { "type": "clue", "sumRow": 19, "sumCol": null },
+    { "type": "clue", "sumRow": 190, "sumCol": null },
     { "type": "input" },
     { "type": "input" },
     { "type": "input" },
@@ -72,7 +72,7 @@
     { "type": "clue", "sumRow": 4, "sumCol": 4 },
     { "type": "input" },
     { "type": "input" },
-    { "type": "block" },
+    { "type": "clue", "sumRow": null, "sumCol": 12 },
 
     { "type": "clue", "sumRow": 6, "sumCol": null },
     { "type": "input" },
