@@ -4,7 +4,6 @@ from typing import NoReturn
 
 import pygame
 
-from src.game_controller.algorithm import Algorithm
 from src.game_controller.backtracking import Backtracking
 from src.game_controller.dfs import Dfs
 from src.game_controller.feedforward import FeedForward
@@ -51,7 +50,7 @@ class KakuroGameController:
     def update_ui(self, game_map: Map) -> None:
         self._ui.set_map(game_map)
         self._ui.update()
-        time.sleep(0.2)
+        time.sleep(0.1)
 
     def start_algorithm(self, algorithm_name: str) -> None:
         self.reload_map()
