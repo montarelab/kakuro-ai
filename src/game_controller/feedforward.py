@@ -15,7 +15,6 @@ class FeedForward(Algorithm):
         """
 
         for node in self._blank_nodes:
-            print('Feedforward iteration', self._iteration)
             self._iteration += 1
 
             possible_values = list(node.get_possible_values(self._clues))
@@ -23,19 +22,11 @@ class FeedForward(Algorithm):
             possible_values = reversed(possible_values)
 
             # If there is exactly one valid value, assign it
-            if length == 1:
-
+            if length >= 1:
                 node.try_change_value(next(iter(possible_values)), self._clues)  # Assign the only value
                 self._lambda(graph_to_map(self._map, self._blank_nodes))
-                # node.value =
-                # if node.row is not None:
-                #     clues[node.row].update_sum()
-                # if node.column is not None:
-                #     clues[node.column].update_sum()
-            elif length == 0:
-                # No valid values for this node, inconsistent state
-                return False
             else:
+                print('There is no solution. Feedforward algorithm failed.')
                 # If more than one value is possible, this algorithm cannot proceed
                 # without introducing backtracking.
                 return False
