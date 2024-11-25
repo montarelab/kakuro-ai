@@ -34,15 +34,19 @@ class Dfs(Algorithm):
                 if node.try_change_value(value, self._clues):
                     # Move to the next node
                     current_index += 1
-                    self._lambda(graph_to_map(self._map, self._blank_nodes))
+                    # self._lambda(graph_to_map(self._map, self._blank_nodes))
                     break
             else:
                 # No valid value, backtrack
                 stack.pop()
                 if not stack:
+                    print('There is no solution. DFS algorithm failed.')
+                    self._lambda(graph_to_map(self._map, self._blank_nodes))
                     return False  # No solution
                 current_index, _ = stack[-1]
                 self._blank_nodes[current_index].try_change_value(0, self._clues)
-                self._lambda(graph_to_map(self._map, self._blank_nodes))
+                # self._lambda(graph_to_map(self._map, self._blank_nodes))
 
+        self._lambda(graph_to_map(self._map, self._blank_nodes))
+        print('Algo was solved')
         return True
