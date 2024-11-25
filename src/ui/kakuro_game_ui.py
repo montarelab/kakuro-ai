@@ -53,14 +53,15 @@ class KakuroGameUI:
             self._field.height + self._field.position.y + 20
         )
 
-    def _calculate_screen_size(self) -> None:
-        self._screen_width = (
-            self.margin_horizontal * 2 + self._field.width
+    def _calculate_window_size(self) -> tuple[float, float]:
+        screen_width = max(
+            self.margin_horizontal * 2 + self._field.width,
+            self.margin_horizontal * 2 + self._calculate_start_forward_button_position()[0]
         )
-        self._screen_height = (
+        screen_height = (
                 self.margin_vertical * 2 + self._field.height + self._start_backtracking_button.height + 20
         )
-        self._screen_size = (self._screen_width, self._screen_height)
+        return screen_width, screen_height
 
     def __init__(self) -> None:
         if hasattr(self, '_initialized'):
@@ -72,14 +73,16 @@ class KakuroGameUI:
 
     def set_map(self, game_map: Map) -> None:
         self._field.set_game_map(game_map)
-        self._update_map_set_related_components()
+        self._refresh_window_size()
+        self._update_buttons_positions()
         self.update()
 
-    def _update_map_set_related_components(self):
-        self._calculate_screen_size()
-        self._canvas = pygame.display.set_mode(self._screen_size)
+    def _refresh_window_size(self) -> None:
+        self._canvas = pygame.display.set_mode(self._calculate_window_size())
+        # self._canvas = pygame.transform.scale(self._canvas, self._calculate_window_size())
         self._canvas.fill(self.background_color)
 
+    def _update_buttons_positions(self):
         start_backtracking_button_position = self._calculate_start_backtracking_button_position()
         start_dfs_button_position = self._calculate_start_dfs_button_position()
         start_forward_button_position = self._calculate_start_forward_button_position()
