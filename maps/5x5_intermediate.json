@@ -1,0 +1,37 @@
+{
+  "dimensions": {
+    "rows": 5,
+    "columns": 5
+  },
+  "cells": [
+    { "type": "block" },
+    { "type": "block" },
+    { "type": "block" },
+    { "type": "clue", "sumRow": null, "sumCol": 21 },
+    { "type": "clue", "sumRow": null, "sumCol": 10 },
+
+    { "type": "block" },
+    { "type": "block" },
+    { "type": "clue", "sumRow": 8, "sumCol": 6 },
+    { "type": "input" },
+    { "type": "input" },
+
+     { "type": "block" },
+    { "type": "clue", "sumRow": 19, "sumCol": 4 },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "input" },
+
+    { "type": "clue", "sumRow": 11, "sumCol": null },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "block" },
+
+    { "type": "clue", "sumRow": 3, "sumCol": null },
+    { "type": "input" },
+    { "type": "input" },
+    { "type": "block" },
+    { "type": "block" }
+  ]
+}
