@@ -4,7 +4,7 @@ from src.parsing_validation.entities import Node, ClueNode, Map
 
 
 class Backtracking(Algorithm):
-    _iteration = 0
+    iteration = 0
 
     def __init__(self, game_map: Map) -> None:
         super().__init__(game_map)
@@ -14,8 +14,10 @@ class Backtracking(Algorithm):
         Solves the Kakuro puzzle using the Backtracking algorithm.
         """
         def backtrack(index: int) -> bool:
-            print('Backtracking iteration', self._iteration)
-            self._iteration += 1
+            self.iteration += 1
+            if self.iteration >= 1000:
+                print('Iterations have been exceed')
+                return False
             """
             Recursive function to perform backtracking.
     
@@ -41,13 +43,13 @@ class Backtracking(Algorithm):
 
                     # Undo assignment if the next steps fail
                     node.try_change_value(0, self._clues)
-                    # node.value = 0
-                    # if node.row is not None:
-                    #     clues[node.row].update_sum()
-                    # if node.column is not None:
-                    #     clues[node.column].update_sum()
 
                 self._lambda(graph_to_map(self._map, self._blank_nodes))
             return False  # No valid values, backtrack
 
-        return backtrack(0)  # Start from the first node
+
+        backtrack(0)  # Start from the first node
+        if self.is_succeed():
+            return True
+        print('Forward checking Algorithm failed')
+        return False

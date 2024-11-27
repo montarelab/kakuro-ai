@@ -4,7 +4,7 @@ from src.parsing_validation.entities import Map
 
 
 class FeedForward(Algorithm):
-    _iteration = 0
+    iteration = 0
 
     def __init__(self, game_map: Map) -> None:
         super().__init__(game_map)
@@ -15,8 +15,8 @@ class FeedForward(Algorithm):
         """
 
         for node in self._blank_nodes:
-            self._iteration += 1
-
+            print('Feedforward iterations: ', self.iteration)
+            self.iteration += 1
             possible_values = list(node.get_possible_values(self._clues))
             length = len(possible_values)
             possible_values = reversed(possible_values)
@@ -27,8 +27,6 @@ class FeedForward(Algorithm):
                 self._lambda(graph_to_map(self._map, self._blank_nodes))
             else:
                 print('There is no solution. Feedforward algorithm failed.')
-                # If more than one value is possible, this algorithm cannot proceed
-                # without introducing backtracking.
                 return False
 
         # If all nodes are filled and consistent, return True

@@ -68,7 +68,7 @@ class Node:
         Tries to change value of a node
         returns: status as bool
         """
-        available_values = {0} | self.get_possible_values(clues)
+        available_values = {0} | set(self.get_possible_values(clues))
 
         if value not in available_values:
             return False
@@ -93,8 +93,8 @@ class Node:
         else:
             col_available_values = set(range(1, 10))
 
-        return row_available_values & col_available_values
-        
+        return sorted(row_available_values & col_available_values)
+
 
 @dataclass
 class ClueNode:
@@ -111,16 +111,37 @@ class ClueNode:
         Returns a list of available to chose unique values
         """
 
+        # allocate sequential values for cells
         len_empty_cells = len([node for node in self.list_of_nodes if node.value == 0])
         allocated_number = sum(list(range(1, len_empty_cells )))
 
+        # take used values
         used_values = set([ node.value for node in self.list_of_nodes ])
         available_valuables = set(range(1, 10)) - used_values
 
+        # values must be less than remained sum
         remained_sum = self.sum_value - self.current_sum
-        available_valuables = set(value for value in available_valuables if value <= remained_sum - allocated_number)
+        available_values = set(value for value in available_valuables if value <= remained_sum - allocated_number)
 
-        return available_valuables
+        # Step 5: Find a valid sequence that achieves the target sum
+        def find_sequences(values, target, length) -> set[int]:
+            """
+            Finds a sequence of unique numbers from 'values' that sum to 'target' with 'length' elements.
+            """
+
+            set_sequence = set()
+            from itertools import combinations
+            for seq in combinations(values, length):
+                if sum(seq) == target:
+                    set_sequence.update(list(seq))
+
+            return set_sequence
+
+
+        valid_sequence = find_sequences(available_values, remained_sum, len_empty_cells)
+
+        # Step 6: Return available values and the valid sequence
+        return valid_sequence
 
     def update_sum(self):
         """
