@@ -4,7 +4,7 @@ from src.parsing_validation.entities import Map
 
 
 class Dfs(Algorithm):
-    _iteration = 0
+    iteration = 0
 
     def __init__(self, game_map: Map) -> None:
         super().__init__(game_map)
@@ -17,8 +17,10 @@ class Dfs(Algorithm):
         current_index = 0
         while current_index < len(self._blank_nodes):
 
-            print('DFS iteration: ', self._iteration)
-            self._iteration += 1
+            self.iteration += 1
+            if self.iteration >= 5000:
+                print('Iterations have been exceed')
+                return False
 
             node = self._blank_nodes[current_index]
 
@@ -34,7 +36,7 @@ class Dfs(Algorithm):
                 if node.try_change_value(value, self._clues):
                     # Move to the next node
                     current_index += 1
-                    # self._lambda(graph_to_map(self._map, self._blank_nodes))
+                    self._lambda(graph_to_map(self._map, self._blank_nodes))
                     break
             else:
                 # No valid value, backtrack
@@ -45,8 +47,7 @@ class Dfs(Algorithm):
                     return False  # No solution
                 current_index, _ = stack[-1]
                 self._blank_nodes[current_index].try_change_value(0, self._clues)
-                # self._lambda(graph_to_map(self._map, self._blank_nodes))
+                self._lambda(graph_to_map(self._map, self._blank_nodes))
 
         self._lambda(graph_to_map(self._map, self._blank_nodes))
-        print('Algo was solved')
         return True

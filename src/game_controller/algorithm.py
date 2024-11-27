@@ -10,6 +10,12 @@ class Algorithm:
         self._lambda = None
         self._blank_nodes, self._clues = get_data_structure(game_map)
 
+    def is_succeed(self):
+        for node in self._blank_nodes:
+            if node.value != 0 or len(node.get_possible_values(self._clues)) > 0:
+                return True
+        return False
+
     def solve(self) -> bool:
         print('Solving algorithm...')
         return False

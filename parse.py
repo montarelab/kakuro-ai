@@ -28,6 +28,3 @@ def parse_map(file_name: Path):
         print('Error has been occurred while reading file', file_name, 'with exception:\n', error)
         sys.exit(1)
 
-# map = parse_map('maps/map1.json')
-# cell = map.cells[4]
-# print('test cell 5:', cell)
