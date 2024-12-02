@@ -1,7 +1,7 @@
 import time
 from pathlib import Path
 from typing import NoReturn
-
+import time
 import pygame
 
 from src.game_controller.backtracking import Backtracking
