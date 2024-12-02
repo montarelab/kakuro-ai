@@ -8,7 +8,7 @@ import pygame
 
 from src.game_controller.backtracking import Backtracking
 from src.game_controller.dfs import Dfs
-from src.game_controller.feedforward import FeedForward
+from src.game_controller.forward_checking import ForwardChecking
 
 from src.game_controller.unknownAlgorithmError import UnknownAlgorithmError
 from src.parsing_validation.entities import Map
@@ -24,7 +24,7 @@ def load_map(path: Path) -> Map:
 
 
 class KakuroGameController:
-    def __init__(self, ui: KakuroGameUI, map_path: Path) -> None:
+    def __init__(self, ui: KakuroGameUI, map_path: Path, step_time: int = 0.1) -> None:
         self._ui = ui
         self._algorithm = None
         self._map_path = map_path
@@ -33,6 +33,7 @@ class KakuroGameController:
         self.set_buttons_bindings()
         self._ui_queue = queue.Queue()
         self._algorithm_thread = None
+        self._step_time = step_time
 
     def start(self) -> NoReturn:
         exit_ui = False
@@ -43,7 +44,7 @@ class KakuroGameController:
                 if event.type == pygame.QUIT:
                     exit_ui = True
 
-            if not self._ui_queue.empty() and time.time() - last_map_update > 0.5:
+            if not self._ui_queue.empty() and time.time() - last_map_update > self._step_time:
                 game_map = self._ui_queue.get()
                 self._ui.set_map(game_map)
                 last_map_update = time.time()
@@ -77,7 +78,7 @@ class KakuroGameController:
             case 'dfs':
                 self._algorithm = Dfs(self._map)
             case 'forward_control':
-                self._algorithm = FeedForward(self._map)
+                self._algorithm = ForwardChecking(self._map)
             case _:
                 raise UnknownAlgorithmError(f'Algorithm {algorithm_name} is not supported')
 
