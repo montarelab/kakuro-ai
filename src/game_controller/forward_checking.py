@@ -49,9 +49,9 @@ class ForwardChecking(Algorithm):
                 if forward_check(node, value):  # Assign value and check constraints
                     self.iteration += 1
 
-                    if self.iteration >= 1000:
-                        print('Iterations have been exceed')
-                        return False
+                    # if self.iteration >= 1000:
+                    #     print('Iterations have been exceed')
+                    #     return False
 
                     self._lambda(graph_to_map(self._map, self._blank_nodes))
 
