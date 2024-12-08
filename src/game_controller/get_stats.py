@@ -4,7 +4,7 @@ from src.game_controller.forward_checking import ForwardChecking
 from src.parsing_validation.entities import Map
 from src.parsing_validation.parse import parse_map
 
-maps = ['5x5_intermediate.json', '7x7_intermediate.json', '9x9_easy.json', '10x12_easy.json', '9x9_easy_unreal.json']
+maps = ['5x5_intermediate.json', '7x7_intermediate.json', '9x9_easy.json', '10x12_intermediate.json', '9x9_easy_unreal.json']
 path = '../../maps/'
 
 def ui_bind_mock(game_m: Map):
