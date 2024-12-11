@@ -63,6 +63,18 @@ class Node:
     upper_node: Optional[int] = None
     bottom_node: Optional[int] = None
 
+    def is_node_valid(self, clues) -> bool:
+        """
+        returns: True if col | row is valid. False otherwise
+        """
+        if self.row is not None:
+            if not clues[self.row].is_valid():
+                return False
+        if self.column is not None:
+            if not clues[self.column].is_valid():
+                return False
+        return True
+
     def try_change_value(self, value, clues) -> bool:
         """
         Tries to change value of a node
@@ -81,6 +93,26 @@ class Node:
             clues[self.column].update_sum()
 
         return True
+
+    def change_value_dfs(self, value):
+        self.value = value
+        return True
+
+    # def is_guess_valid_dfs(self, clues) -> bool:
+    #     pass
+
+    def get_unused_values_dfs(self, nodelist_arr) -> list[int]:
+        if self.row is not None:
+            row_available_values = nodelist_arr[self.row].get_unused_values()
+        else:
+            row_available_values = set(range(1, 10))
+
+        if self.column is not None:
+            col_available_values = nodelist_arr[self.column].get_unused_values()
+        else:
+            col_available_values = set(range(1, 10))
+
+        return sorted(row_available_values & col_available_values)
 
     def get_possible_values(self, nodelist_arr) -> list[int]:
         if self.row is not None:
@@ -106,6 +138,11 @@ class ClueNode:
     sum_value: int
     current_sum: int = 0
 
+    def get_unused_values(self) -> set[int]:
+        used_values = set([node.value for node in self.list_of_nodes])
+        available_valuables = set(range(1, 10)) - used_values
+        return available_valuables
+
     def get_available_values(self) -> set[int]:
         """
         Returns a list of available to chose unique values
@@ -116,8 +153,7 @@ class ClueNode:
         allocated_number = sum(list(range(1, len_empty_cells )))
 
         # take used values
-        used_values = set([ node.value for node in self.list_of_nodes ])
-        available_valuables = set(range(1, 10)) - used_values
+        available_valuables = self.get_unused_values()
 
         # values must be less than remained sum
         remained_sum = self.sum_value - self.current_sum
