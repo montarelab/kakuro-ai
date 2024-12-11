@@ -1,5 +1,4 @@
-from turtle import Screen
-from pygame import freetype as py_freetype, draw
+from pygame import Surface, freetype as py_freetype, draw
 from src.ui.kakuro_field_cell import KakuroFieldCell
 from src.ui.position import Position
 
@@ -14,7 +13,7 @@ class KakuroFieldClue(KakuroFieldCell):
     font_family = 'Inter'
     text_offset = 3
 
-    def __init__(self, screen: Screen, position: Position, sum_row: int | None, sum_column: int | None):
+    def __init__(self, screen: Surface, position: Position, sum_row: int | None, sum_column: int | None):
         self._screen = screen
         self._position = position
         self._top_right_text = str(sum_row) if sum_row is not None else None
