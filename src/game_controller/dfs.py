@@ -56,7 +56,7 @@ class Dfs(Algorithm):
 
         # init first node
         node = self._blank_nodes[current_index]
-        possible_values = reversed(node.get_unused_values_dfs(self._clues))
+        possible_values = reversed(node.get_possible_values_dfs(self._clues))
         # traverse possible values (dfs)
 
         for value in possible_values:
