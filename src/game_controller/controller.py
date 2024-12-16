@@ -24,7 +24,7 @@ def load_map(path: Path) -> Map:
 
 
 class KakuroGameController:
-    def __init__(self, ui: KakuroGameUI, map_path: Path, step_time: int = 0.1) -> None:
+    def __init__(self, ui: KakuroGameUI, map_path: Path, step_time: int = 0.01) -> None:
         self._ui = ui
         self._algorithm = None
         self._map_path = map_path
