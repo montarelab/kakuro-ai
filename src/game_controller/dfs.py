@@ -42,7 +42,7 @@ class Dfs(Algorithm):
         # validation
         if current_index >= len(self._blank_nodes):
             # All nodes processed successfully
-            self._lambda(graph_to_map(self._map, self._blank_nodes))
+            # self._lambda(graph_to_map(self._map, self._blank_nodes))
             # print('Algo was successful')
             if self.is_game_solved():
                 return True
@@ -60,28 +60,23 @@ class Dfs(Algorithm):
         # traverse possible values (dfs)
 
         for value in possible_values:
+            # if node.value != value:
             node.change_value_dfs(value)
+
+            # print('new value is', value, 'for', node.id)
             self._lambda(graph_to_map(self._map, self._blank_nodes))
+            # print()
+
             if self.dfs(current_index + 1):
                 return True
                 # Backtrack
-            if not node.is_node_valid(self._clues):
-                last_node_position = list(self.best_satisfied_condition)[-1]
-                if node.pos_x < last_node_position[0] or node.pos_y < last_node_position[1]:
-                    new_best_position = ()
-                    if node.pos_x < last_node_position[0]:
-                        new_best_position = (node.pos_x, last_node_position[1])
-                    if node.pos_y < last_node_position[1]:
-                        new_best_position = (node.pos_x, node.pos_y)
 
-                    if not new_best_position in self.best_satisfied_condition:
-                        self.best_satisfied_condition.add(new_best_position)
-                        # self.best_satisfied_condition[1] = node.pos_x
-                        # self.best_satisfied_condition[0] = node.pos_y
-                        # print(f'Condition was satisfied for node ({new_best_position[0]} {new_best_position[1]})' )
+            if not node.is_node_valid(self._clues):
+
                 node.change_value_dfs(0)
-                self._lambda(graph_to_map(self._map, self._blank_nodes))
+                # self._lambda(graph_to_map(self._map, self._blank_nodes))
             # else:
             #     print('node is not valid')
         # print(f'Backtracking on node index {current_index}')
+
         return False
