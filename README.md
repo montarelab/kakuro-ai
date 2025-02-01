@@ -85,3 +85,15 @@ Puzzles are provided in **JSON format**, structured as follows:
 ![alt text](images/plot-2.png)
 
 Results clearly show that even though Forward checking has at most number of iterations, it solves Kakuro in the fastest way.
+
+## 💡 Conclusions 
+
+- For simple and moderately complex puzzles, backtracking can be sufficient.
+- For difficult puzzles or when high efficiency is needed, Forward Checking is the
+best choice.
+- DFS can be useful for understanding the basic structure of a problem, but is not ideal
+for practical solving complex puzzles.
+- Based on testing results, a combination of algorithms can be recommended, with Forward
+Checking serving as the main method and Backtracking serving as a complementary method, ensuring both reliability
+and efficiency.
+
