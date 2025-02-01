@@ -1,6 +1,8 @@
 from src.game_controller.algorithm import Algorithm
 from src.parsing_validation.converters import graph_to_map
 from src.parsing_validation.entities import Map, Node
+from time import  sleep
+
 
 # pros requires storing of only the current path, making it memory efficient, simple implementation, finds deep solution quickly
 # cons sometimes limits on iterations can be made. kompletnost, nemusi najst najkratsiu cestu, v pripade vazeneho grafa zasekne lokalne minimumy
@@ -63,7 +65,8 @@ class Dfs(Algorithm):
             # if node.value != value:
             node.change_value_dfs(value)
 
-            # print('new value is', value, 'for', node.id)
+            # print('hello world')
+            sleep(0.0)
             self._lambda(graph_to_map(self._map, self._blank_nodes))
             # print()
 
