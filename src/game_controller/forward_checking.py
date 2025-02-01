@@ -26,9 +26,9 @@ class ForwardChecking(Algorithm):
             for n in self._blank_nodes:
                 self.iteration += 1
 
-                if n.value == 0:  # Only consider unassigned nodes
+                if n.value == 0:  
                     possible_values = n.get_possible_values(self._clues)
-                    if not possible_values:  # If no values are possible, conflict detected
+                    if not possible_values:  
                         return False
             return True
 
@@ -36,7 +36,7 @@ class ForwardChecking(Algorithm):
             """
             Recursively assigns values to nodes using Forward Checking.
             """
-            if index == len(self._blank_nodes):  # Base case: all nodes are assigned
+            if index == len(self._blank_nodes):  
                 return True
 
             node = self._blank_nodes[index]
@@ -46,18 +46,12 @@ class ForwardChecking(Algorithm):
 
             for value in valid_values:
 
-                if forward_check(node, value):  # Assign value and check constraints
+                if forward_check(node, value):  
                     self.iteration += 1
-
-                    # if self.iteration >= 1000:
-                    #     print('Iterations have been exceed')
-                    #     return False
-
                     self._lambda(graph_to_map(self._map, self._blank_nodes))
 
-                    if backtrack(index + 1):  # Recurse to the next node
+                    if backtrack(index + 1):  
                         return True
-                # Undo assignment if it leads to failure
 
                 node.try_change_value(0, self._clues)
 

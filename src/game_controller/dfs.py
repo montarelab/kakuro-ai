@@ -3,14 +3,6 @@ from src.parsing_validation.converters import graph_to_map
 from src.parsing_validation.entities import Map, Node
 from time import  sleep
 
-
-# pros requires storing of only the current path, making it memory efficient, simple implementation, finds deep solution quickly
-# cons sometimes limits on iterations can be made. kompletnost, nemusi najst najkratsiu cestu, v pripade vazeneho grafa zasekne lokalne minimumy
-
-# pridavame indexy mozne hodnoty do stacku
-# iterujeme indexy v cykluse, ak tam nebude hodnot, vratime sa spat do predosleho indexu
-
-
 class Dfs(Algorithm):
     iteration = 0
     best_satisfied_condition = set()
@@ -20,7 +12,6 @@ class Dfs(Algorithm):
         node =self._blank_nodes[-1]
         self.best_satisfied_condition = set()
         self.best_satisfied_condition.add((node.pos_x, node.pos_y))
-        # self.best_satisfied_condition = [node.pos_y, node.pos_x]
         print(f'Condition was satisfied for node ({self.best_satisfied_condition})')
 
     def is_game_solved(self):
@@ -43,32 +34,21 @@ class Dfs(Algorithm):
         """
         # validation
         if current_index >= len(self._blank_nodes):
-            # All nodes processed successfully
-            # self._lambda(graph_to_map(self._map, self._blank_nodes))
-            # print('Algo was successful')
             if self.is_game_solved():
                 return True
             return False
 
-        # iteration solver
         self.iteration += 1
-        # if self.iteration >= 50000:
-        #     print('Iterations have been exceeded')
-        #     return False
 
         # init first node
         node = self._blank_nodes[current_index]
         possible_values = reversed(node.get_possible_values_dfs(self._clues))
-        # traverse possible values (dfs)
 
         for value in possible_values:
-            # if node.value != value:
             node.change_value_dfs(value)
 
-            # print('hello world')
             sleep(0.0)
             self._lambda(graph_to_map(self._map, self._blank_nodes))
-            # print()
 
             if self.dfs(current_index + 1):
                 return True
@@ -77,9 +57,5 @@ class Dfs(Algorithm):
             if not node.is_node_valid(self._clues):
 
                 node.change_value_dfs(0)
-                # self._lambda(graph_to_map(self._map, self._blank_nodes))
-            # else:
-            #     print('node is not valid')
-        # print(f'Backtracking on node index {current_index}')
 
         return False

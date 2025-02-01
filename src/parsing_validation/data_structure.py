@@ -93,7 +93,7 @@ def get_data_structure(game_map: Map) -> tuple [list[Node], list[ClueNode]]:
 
     # Get array of clues: rows and columns
     all_clues = list()
-    for (row_index, row) in enumerate(cells_matrix): # traverse the cell_matrix
+    for (row_index, row) in enumerate(cells_matrix): 
         for (col_index, cell) in enumerate(row):
 
             if not isinstance(cell, Clue): 

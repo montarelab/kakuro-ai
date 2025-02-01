@@ -27,28 +27,26 @@ class Backtracking(Algorithm):
             Returns:
                 True if the puzzle can be solved, False if no solution exists.
             """
-            if index == len(self._blank_nodes):  # Base case: All nodes are processed
+            if index == len(self._blank_nodes):  
                 return True
 
             node = self._blank_nodes[index]
             possible_values = reversed(list(node.get_possible_values(self._clues)))
 
             for value in possible_values:
-                if node.try_change_value(value, self._clues):  # Check if assigning this value is valid
+                if node.try_change_value(value, self._clues): 
                     self._lambda(graph_to_map(self._map, self._blank_nodes))
 
-                    # Recursively process the next node
                     if backtrack(index + 1):
                         return True
 
-                    # Undo assignment if the next steps fail
                     node.try_change_value(0, self._clues)
 
                 self._lambda(graph_to_map(self._map, self._blank_nodes))
-            return False  # No valid values, backtrack
+            return False  
 
 
-        backtrack(0)  # Start from the first node
+        backtrack(0)  
         if self.is_succeed():
             return True
         print('Forward checking Algorithm failed')

@@ -98,21 +98,7 @@ class Node:
         self.value = value
         return True
 
-    # def is_guess_valid_dfs(self, clues) -> bool:
-    #     pass
-
     def get_possible_values_dfs(self, nodelist_arr) -> list[int]:
-        # if self.row is not None:
-        #     row_available_values = nodelist_arr[self.row].get_unused_values()
-        # else:
-        #     row_available_values = set(range(1, 10))
-        #
-        # if self.column is not None:
-        #     col_available_values = nodelist_arr[self.column].get_unused_values()
-        # else:
-        #     col_available_values = set(range(1, 10))
-        #
-        # return sorted(row_available_values & col_available_values)
         return list(range(1, 10))
 
     def get_possible_values(self, nodelist_arr) -> list[int]:
