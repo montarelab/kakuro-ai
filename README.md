@@ -86,7 +86,7 @@ Puzzles are provided in **JSON format**, structured as follows:
 
 Results clearly show that even though Forward checking has at most number of iterations, it solves Kakuro in the fastest way.
 
-## 💡 Conclusions 
+## 💡 Findings 
 
 - For simple and moderately complex puzzles, backtracking can be sufficient.
 - For difficult puzzles or when high efficiency is needed, Forward Checking is the
